@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Petcare - Trova i migliori professionisti per il tuo animale domestico">
+    <title>Petcare - Servizi per Animali Domestici</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .cta-button {
+            background: white;
+            color: #667eea;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        /* Search Section */
+        .search-section {
+            padding: 60px 0;
+            background: #f8f9fa;
+        }
+
+        .search-box {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .search-box h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #667eea;
+        }
+
+        .search-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 15px;
+        }
+
+        .search-form select,
+        .search-form button {
+            padding: 12px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .search-form button {
+            background: #667eea;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .search-form button:hover {
+            background: #5568d3;
+        }
+
+        /* Professionals Section */
+        .professionals-section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 50px;
+            color: #333;
+        }
+
+        #professionals-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .professional-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .professional-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 15px;
+        }
+
+        .card-header h3 {
+            font-size: 22px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .verified-badge {
+            background: #4CAF50;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .profession {
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .location {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 15px 0;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .stars {
+            color: #ffc107;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .reviews {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .rate {
+            font-size: 20px;
+            font-weight: bold;
+            color: #667eea;
+            margin: 10px 0;
+        }
+
+        .services {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+            margin: 15px 0;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .book-button {
+            width: 100%;
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 15px;
+        }
+
+        .book-button:hover {
+            background: #5568d3;
+        }
+
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #667eea;
+            font-size: 18px;
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 40px 0;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .search-form {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            #professionals-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    🐾 Petcare
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#professionisti">Professionisti</a></li>
+                    <li><a href="#servizi">Servizi</a></li>
+                    <li><a href="/admin/login">Admin</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>🐾 Benvenuto su Petcare</h1>
+            <p>Trova i migliori professionisti per il tuo animale domestico</p>
+            <button class="cta-button" onclick="scrollToSearch()">Trova un Professionista</button>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section class="search-section" id="cerca">
+        <div class="container">
+            <div class="search-box">
+                <h2>Cerca il professionista perfetto</h2>
+                <form class="search-form" onsubmit="return searchProfessionals(event)">
+                    <select id="profession-filter">
+                        <option value="">Tutte le professioni</option>
+                        <option value="Veterinario">Veterinario</option>
+                        <option value="Toelettatore">Toelettatore</option>
+                        <option value="Dog Sitter">Dog Sitter</option>
+                        <option value="Addestratore Cinofilo">Addestratore Cinofilo</option>
+                    </select>
+                    <select id="city-filter">
+                        <option value="">Tutte le città</option>
+                        <option value="Milano">Milano</option>
+                        <option value="Roma">Roma</option>
+                        <option value="Napoli">Napoli</option>
+                        <option value="Torino">Torino</option>
+                    </select>
+                    <button type="submit">🔍 Cerca</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Professionals Section -->
+    <section class="professionals-section" id="professionisti">
+        <div class="container">
+            <h2 class="section-title">I Nostri Professionisti</h2>
+            <div id="professionals-list" class="loading">
+                Caricamento professionisti...
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Petcare</h3>
+                    <p>La piattaforma di riferimento per i servizi pet care in Italia</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#professionisti">Professionisti</a></li>
+                        <li><a href="#servizi">Servizi</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contatti</h3>
+                    <ul>
+                        <li><a href="mailto:info@petcare.it">info@petcare.it</a></li>
+                        <li><a href="tel:+393331234567">+39 333 123 4567</a></li>
+                    </ul>
+                </div>
+            </div>
+            <p>&copy; 2025 Petcare. Tutti i diritti riservati.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Carica professionisti all'avvio
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProfessionals();
+        });
+
+        // Carica professionisti
+        function loadProfessionals(profession = '', city = '') {
+            const listElement = document.getElementById('professionals-list');
+            listElement.innerHTML = '<div class="loading">Caricamento professionisti...</div>';
+
+            let url = '/api/professionals';
+            const params = new URLSearchParams();
+            if (profession) params.append('profession', profession);
+            if (city) params.append('city', city);
+            if (params.toString()) url += '?' + params.toString();
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length === 0) {
+                        listElement.innerHTML = '<div class="loading">Nessun professionista trovato</div>';
+                        return;
+                    }
+
+                    listElement.innerHTML = data.map(p => `
+                        <div class="professional-card" onclick="viewProfessional(${p.id})">
+                            <div class="card-header">
+                                <div>
+                                    <h3>${p.name}</h3>
+                                    <div class="profession">${p.profession}</div>
+                                </div>
+                                ${p.is_verified ? '<span class="verified-badge">✓ Verificato</span>' : ''}
+                            </div>
+                            
+                            <div class="location">
+                                📍 ${p.city}, ${p.region}
+                            </div>
+                            
+                            <div class="rating">
+                                <span class="stars">⭐ ${p.rating.toFixed(1)}</span>
+                                <span class="reviews">(${p.total_reviews} recensioni)</span>
+                            </div>
+                            
+                            <div class="rate">€${p.hourly_rate}/ora</div>
+                            
+                            <div class="services">
+                                <strong>Servizi:</strong> ${p.services_offered}
+                            </div>
+                            
+                            <button class="book-button" onclick="bookProfessional(${p.id}); event.stopPropagation();">
+                                Prenota Ora
+                            </button>
+                        </div>
+                    `).join('');
+                })
+                .catch(error => {
+                    console.error('Errore:', error);
+                    listElement.innerHTML = '<div class="loading">Errore nel caricamento dei professionisti</div>';
+                });
+        }
+
+        // Cerca professionisti
+        function searchProfessionals(event) {
+            event.preventDefault();
+            const profession = document.getElementById('profession-filter').value;
+            const city = document.getElementById('city-filter').value;
+            loadProfessionals(profession, city);
+            
+            // Scroll alla lista
+            document.getElementById('professionisti').scrollIntoView({ behavior: 'smooth' });
+            return false;
+        }
+
+        // Visualizza dettagli professionista
+        function viewProfessional(id) {
+            alert(`Visualizzazione dettagli professionista ID: ${id}\n(Da implementare)`);
+        }
+
+        // Prenota professionista
+        function bookProfessional(id) {
+            alert(`Prenotazione per professionista ID: ${id}\n(Da implementare)`);
+        }
+
+        // Scroll alla sezione ricerca
+        function scrollToSearch() {
+            document.getElementById('cerca').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
